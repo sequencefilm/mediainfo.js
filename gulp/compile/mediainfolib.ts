@@ -6,8 +6,16 @@ import { spawn } from '../utils.ts'
 const mediainfolibDir = path.join(VENDOR_DIR, 'MediaInfoLib', 'Project', 'GNU', 'Library')
 
 async function task() {
+  await spawn(
+    'sh',
+    ['-c', 'printf "#!/bin/sh\n" > temp && cat autogen.sh >> temp && mv temp autogen.sh'],
+    mediainfolibDir
+  )
+  await spawn('chmod', ['+x', 'autogen.sh'], mediainfolibDir)
   await spawn('./autogen.sh', [], mediainfolibDir)
-  await spawn('sed', ['-i', 's/-O2/-Oz/', 'configure'], mediainfolibDir)
+  await spawn('sed', ['-i', '', 's/-O2/-Oz/', 'configure'], mediainfolibDir)
+
+  console.log('Configuring MediaInfoLib build...')
   await spawn(
     'emconfigure',
     [

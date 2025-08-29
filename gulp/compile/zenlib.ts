@@ -7,7 +7,7 @@ const zenlibDir = path.join(VENDOR_DIR, 'ZenLib', 'Project', 'GNU', 'Library')
 
 async function task() {
   await spawn('./autogen.sh', [], zenlibDir)
-  await spawn('sed', ['-i', 's/-O2/-Oz/', 'configure'], zenlibDir)
+  await spawn('sed', ['-i', '', 's/-O2/-Oz/', 'configure'], zenlibDir)
   await spawn(
     'emconfigure',
     [

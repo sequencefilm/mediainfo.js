@@ -13,7 +13,7 @@ type TrackFields = Record<string, TrackField>
 
 type TrackTypes = Record<'Base' | CsvType, TrackFields>
 
-type GetXsdPropery = (name: string) => XsdProperty
+type GetXsdPropery = (name: string) => XsdProperty | null
 
 function normalizeName(name: string) {
   let normalizedName = name.replace('*', '_')
@@ -38,11 +38,16 @@ function findCommonFields(descriptions: CsvData, getXsdType: GetXsdPropery): Tra
     if (Object.values(others).every((descr) => Object.keys(descr).includes(csvName))) {
       const normalizedName = normalizeName(csvName)
 
+      const xsdType = getXsdType(normalizedName)
+      if (!xsdType) {
+        continue
+      }
+
       // Add to common
       commonFields[normalizedName] = {
         description: general[csvName].description, // ok: all common properties have descriptions
         group: general[csvName].group,
-        type: getXsdType(normalizedName).type,
+        type: xsdType.type,
       }
     }
   }
@@ -66,6 +71,10 @@ function makeTrackFields(
     }
 
     const xsdProperty = getXsdType(normalizedName)
+
+    if (!xsdProperty) {
+      continue
+    }
 
     const field: TrackField = {
       type: xsdProperty.type,
@@ -97,9 +106,9 @@ async function getFields(): Promise<[TrackTypes, string[], string[]]> {
   // Parse CSV
   const csvData = await parseCsv()
 
-  const getXsdType = (fieldName: string): XsdProperty => {
+  const getXsdType = (fieldName: string): XsdProperty | null => {
     if (!Object.keys(xsdProperties).includes(fieldName)) {
-      throw new Error(`Property '${fieldName}' not found XSD`)
+      return null
     }
     return xsdProperties[fieldName]
   }
