@@ -70,14 +70,24 @@ async function optimizeWasm() {
     BUILD_DIR
   )
   await fs.mkdir(DIST_DIR, { recursive: true })
-  await spawn(
-    'wasm-opt',
-    ['-c', '-Oz', '-o', path.join(DIST_DIR, WASM_FILE), DCE_WASM_PATH],
-    BUILD_DIR
-  )
+  const wasmOptArgs = [
+    '-c',
+    '-Oz',
+    '--disable-tail-call',
+    '-o',
+    path.join(DIST_DIR, WASM_FILE),
+    DCE_WASM_PATH,
+  ]
+  console.log(`wasm-opt ${wasmOptArgs.join(' ')}`)
+  const o = await spawn('wasm-opt', wasmOptArgs, BUILD_DIR)
+  console.log(wasmOptArgs)
+
+  console.log(o)
 }
 
 optimizeWasm.displayName = 'compile:optimize-wasm'
 optimizeWasm.description = 'Optimize WASM'
+
+optimizeWasm()
 
 export default optimizeWasm
