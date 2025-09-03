@@ -66,14 +66,16 @@ async function optimizeWasm() {
   await createDceConfig(exports)
   await spawn(
     'wasm-metadce',
-    ['-all', '--disable-tail-call', '-f', DCE_CONFIG_FILE, '-o', DCE_WASM_PATH, WASM_FILE],
+    ['-all', '--disable-tail-call', '--disable-gc', '--disable-custom-descriptors', '-f', DCE_CONFIG_FILE, '-o', DCE_WASM_PATH, WASM_FILE],
     BUILD_DIR
   )
   await fs.mkdir(DIST_DIR, { recursive: true })
   const wasmOptArgs = [
     '-c',
-    '-Oz',
+    '-Oz', 
     '--disable-tail-call',
+    '--disable-gc',
+    '--disable-custom-descriptors',
     '-o',
     path.join(DIST_DIR, WASM_FILE),
     DCE_WASM_PATH,
