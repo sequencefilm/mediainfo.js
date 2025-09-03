@@ -66,7 +66,7 @@ async function optimizeWasm() {
   await createDceConfig(exports)
   await spawn(
     'wasm-metadce',
-    ['-all', '-f', DCE_CONFIG_FILE, '-o', DCE_WASM_PATH, WASM_FILE],
+    ['-all', '--disable-tail-call', '-f', DCE_CONFIG_FILE, '-o', DCE_WASM_PATH, WASM_FILE],
     BUILD_DIR
   )
   await fs.mkdir(DIST_DIR, { recursive: true })
@@ -78,16 +78,10 @@ async function optimizeWasm() {
     path.join(DIST_DIR, WASM_FILE),
     DCE_WASM_PATH,
   ]
-  console.log(`wasm-opt ${wasmOptArgs.join(' ')}`)
-  const o = await spawn('wasm-opt', wasmOptArgs, BUILD_DIR)
-  console.log(wasmOptArgs)
-
-  console.log(o)
+  await spawn('wasm-opt', wasmOptArgs, BUILD_DIR)
 }
 
 optimizeWasm.displayName = 'compile:optimize-wasm'
 optimizeWasm.description = 'Optimize WASM'
-
-optimizeWasm()
 
 export default optimizeWasm
