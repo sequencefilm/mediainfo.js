@@ -10,7 +10,7 @@ public:
   MediaInfoJs(const MediaInfoLib::String &outputFormat, bool coverData, bool full)
   {
     mi.Option(__T("Output"), outputFormat);
-    mi.Option(__T("File_IsSeekable"), __T("1"));
+    mi.Option(__T("File_IsSeekable"), __T("0"));
     if (coverData)
     {
       mi.Option(__T("Cover_Data"), __T("base64"));
