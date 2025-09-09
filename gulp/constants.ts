@@ -10,7 +10,7 @@ const WASM_FILE = 'MediaInfoModule.wasm'
 
 const TRACK_TYPES = ['General', 'Video', 'Audio', 'Text', 'Image', 'Menu', 'Other']
 
-const WASM_INITIAL_MEMORY = 2 ** 25 // 32 MiB
+const WASM_INITIAL_MEMORY = 2 ** 25 * 3 // 96 MiB
 
 // Global variable name for UMD build
 const UMD_NAME = 'MediaInfo'
