@@ -231,6 +231,32 @@ async function Module(moduleArg = {}) {
     // No ATPOSTRUNS hooks
   }
 
+  // A counter of dependencies for calling run(). If we need to
+  // do asynchronous work before running, increment this and
+  // decrement it. Incrementing must happen in a place like
+  // Module.preRun (used by emcc to add file preloading).
+  // Note that you can add dependencies in preRun, even though
+  // it happens right before run - run will be postponed until
+  // the dependencies are met.
+  var runDependencies = 0
+  var dependenciesFulfilled = null // overridden to take different actions when all run dependencies are fulfilled
+
+  function addRunDependency(id) {
+    runDependencies++
+  }
+
+  function removeRunDependency(id) {
+    runDependencies--
+
+    if (runDependencies == 0) {
+      if (dependenciesFulfilled) {
+        var callback = dependenciesFulfilled
+        dependenciesFulfilled = null
+        callback() // can add another dependenciesFulfilled
+      }
+    }
+  }
+
   /** @param {string|number=} what */
   function abort(what) {
     what = 'Aborted(' + what + ')'
@@ -361,8 +387,11 @@ async function Module(moduleArg = {}) {
       wasmTable = wasmExports['__indirect_function_table']
 
       assignWasmExports(wasmExports)
+      removeRunDependency('wasm-instantiate')
       return wasmExports
     }
+    // wait for the pthread pool (if any)
+    addRunDependency('wasm-instantiate')
 
     // Prefer streaming instantiation if available.
     function receiveInstantiationResult(result) {
@@ -2498,7 +2527,7 @@ async function Module(moduleArg = {}) {
   }
 
   var ptrToString = (ptr) => {
-    // Convert to 32-bit unsigned value
+    // With CAN_ADDRESS_2GB or MEMORY64, pointers are already unsigned.
     ptr >>>= 0
     return '0x' + ptr.toString(16).padStart(8, '0')
   }
@@ -2583,12 +2612,24 @@ async function Module(moduleArg = {}) {
     /** @export */
     fd_write: _fd_write,
   }
+  var wasmExports = await createWasm()
 
   // include: postamble.js
   // === Auto-generated postamble setup entry stuff ===
 
   function run() {
+    if (runDependencies > 0) {
+      dependenciesFulfilled = run
+      return
+    }
+
     preRun()
+
+    // a preRun added a dependency, run will be called later
+    if (runDependencies > 0) {
+      dependenciesFulfilled = run
+      return
+    }
 
     function doRun() {
       // run may have just been called through dependencies being fulfilled just in this very frame,
@@ -2609,12 +2650,9 @@ async function Module(moduleArg = {}) {
     }
   }
 
-  var wasmExports
+  function preInit() {}
 
-  // In modularize mode the generated code is within a factory function so we
-  // can use await here (since it's not top-level-await).
-  wasmExports = await createWasm()
-
+  preInit()
   run()
 
   // end include: postamble.js
