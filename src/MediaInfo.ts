@@ -111,7 +111,7 @@ class MediaInfo<TFormat extends FormatType = typeof DEFAULT_OPTIONS.format> {
     }
 
     const finalize = () => {
-      this.openBufferFinalize()
+      // this.openBufferFinalize()
       const result = this.inform()
       if (this.options.format === 'object') {
         callback(this.parseResultJson(result))
