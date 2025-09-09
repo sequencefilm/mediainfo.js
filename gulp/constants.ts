@@ -10,7 +10,7 @@ const WASM_FILE = 'MediaInfoModule.wasm'
 
 const TRACK_TYPES = ['General', 'Video', 'Audio', 'Text', 'Image', 'Menu', 'Other']
 
-const WASM_INITIAL_MEMORY = 2 ** 25 * 3 // 96 MiB
+const WASM_INITIAL_MEMORY = 2 ** 25 // 32 MiB
 
 // Global variable name for UMD build
 const UMD_NAME = 'MediaInfo'
@@ -23,12 +23,14 @@ const CXXFLAGS = '-DEMSCRIPTEN_HAS_UNBOUND_TYPE_NAMES=0 -fno-rtti -fno-exception
 // switch off features to save some bytes
 const MediaInfoLib_CXXFLAGS = `-I ../../../Source -I ../../../../ZenLib/Source -s USE_ZLIB=1 \
   -DMEDIAINFO_ADVANCED_YES \
+  -DMEDIAINFO_MINIMAL_YES \
   -DMEDIAINFO_EXPORT_YES \
   -DMEDIAINFO_SEEK_YES \
   -DMEDIAINFO_GRAPH_NO \
   -DMEDIAINFO_GRAPHVIZ_NO \
   -DMEDIAINFO_ARCHIVE_NO \
   -DMEDIAINFO_FIXITY_NO \
+  -DMEDIAINFO_MXF_YES \
   -DMEDIAINFO_CSV_NO \
   -DMEDIAINFO_CUSTOM_NO \
   -DMEDIAINFO_EBUCORE_NO \

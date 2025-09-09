@@ -14,7 +14,7 @@ function makeArgs(environment: 'web' | 'node', es6: boolean) {
   return [
     ...CXXFLAGS.split(' '),
     ...MediaInfoLib_CXXFLAGS.split(' '),
-    `-INITIAL_HEAP=${WASM_INITIAL_MEMORY}`,
+    `-INITIAL_MEMORY=${WASM_INITIAL_MEMORY}`,
     '-sALLOW_MEMORY_GROWTH=1',
     '-sMALLOC=emmalloc',
     '-sASSERTIONS=0',
