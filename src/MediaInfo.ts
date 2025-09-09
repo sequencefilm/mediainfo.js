@@ -111,7 +111,7 @@ class MediaInfo<TFormat extends FormatType = typeof DEFAULT_OPTIONS.format> {
     }
 
     const finalize = () => {
-      // this.openBufferFinalize()
+      this.openBufferFinalize()
       const result = this.inform()
       if (this.options.format === 'object') {
         callback(this.parseResultJson(result))
@@ -231,19 +231,17 @@ class MediaInfo<TFormat extends FormatType = typeof DEFAULT_OPTIONS.format> {
    * @group Low-level
    */
   openBufferContinueGotoGet(): number {
-    // JS bindings don't support 64 bit int
-    // https://github.com/buzz/mediainfo.js/issues/11
-    let seekTo = -1
-    const seekToLow: number = this.mediainfoModuleInstance.open_buffer_continue_goto_get_lower()
-    const seekToHigh: number = this.mediainfoModuleInstance.open_buffer_continue_goto_get_upper()
-    if (seekToLow == -1 && seekToHigh == -1) {
-      seekTo = -1
-    } else if (seekToLow < 0) {
-      seekTo = seekToLow + MAX_UINT32_PLUS_ONE + seekToHigh * MAX_UINT32_PLUS_ONE
-    } else {
-      seekTo = seekToLow + seekToHigh * MAX_UINT32_PLUS_ONE
+    // Get lower and upper 32 bits as unsigned
+    const seekToLow = this.mediainfoModuleInstance.open_buffer_continue_goto_get_lower() >>> 0
+    const seekToHigh = this.mediainfoModuleInstance.open_buffer_continue_goto_get_upper() >>> 0
+
+    // Special case: both parts are -1 (no seek requested)
+    if (seekToLow === 0xffffffff && seekToHigh === 0xffffffff) {
+      return -1
     }
-    return seekTo
+
+    // Combine to form the full 64-bit offset
+    return seekToLow + seekToHigh * 0x100000000 // 2^32
   }
 
   /**
