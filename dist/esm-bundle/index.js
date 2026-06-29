@@ -11,7 +11,7 @@ function unknownToError(error) {
 // DO NOT EDIT! File generated using `generate-types` script.
 
 const INT_FIELDS = ['Active_Height', 'Active_Width', 'AudioCount', 'Audio_Channels_Total', 'BitDepth_Detected', 'BitDepth', 'BitDepth_Stored', 'Channels', 'Channels_Original', 'Chapters_Pos_Begin', 'Chapters_Pos_End', 'Comic_Position_Total', 'Count', 'DataSize', 'ElementCount', 'EPG_Positions_Begin', 'EPG_Positions_End', 'FirstPacketOrder', 'FooterSize', 'Format_Settings_GMC', 'Format_Settings_RefFrames', 'Format_Settings_SliceCount', 'FrameCount', 'FrameRate_Den', 'FrameRate_Num', 'GeneralCount', 'HeaderSize', 'Height_CleanAperture', 'Height', 'Height_Offset', 'Height_Original', 'ImageCount', 'Lines_MaxCharacterCount', 'Lines_MaxCountPerEvent', 'Matrix_Channels', 'MenuCount', 'OtherCount', 'Part_Position', 'Part_Position_Total', 'Played_Count', 'Reel_Position', 'Reel_Position_Total', 'Resolution', 'Sampled_Height', 'Sampled_Width', 'SamplingCount', 'Season_Position', 'Season_Position_Total', 'Source_FrameCount', 'Source_SamplingCount', 'Source_StreamSize_Encoded', 'Source_StreamSize', 'Status', 'Stored_Height', 'Stored_Width', 'StreamCount', 'StreamKindID', 'StreamKindPos', 'StreamSize_Demuxed', 'StreamSize_Encoded', 'StreamSize', 'TextCount', 'Track_Position', 'Track_Position_Total', 'Video0_Delay', 'VideoCount', 'Width_CleanAperture', 'Width', 'Width_Offset', 'Width_Original'];
-const FLOAT_FIELDS = ['Active_DisplayAspectRatio', 'BitRate_Encoded', 'BitRate_Maximum', 'BitRate_Minimum', 'BitRate', 'BitRate_Nominal', 'Bits-Pixel_Frame', 'BitsPixel_Frame', 'Compression_Ratio', 'Delay', 'Delay_Original', 'DisplayAspectRatio_CleanAperture', 'DisplayAspectRatio', 'DisplayAspectRatio_Original', 'Duration_End_Command', 'Duration_End', 'Duration_FirstFrame', 'Duration_LastFrame', 'Duration', 'Duration_Start2End', 'Duration_Start_Command', 'Duration_Start', 'Events_MinDuration', 'FrameRate_Maximum', 'FrameRate_Minimum', 'FrameRate', 'FrameRate_Nominal', 'FrameRate_Original_Den', 'FrameRate_Original', 'FrameRate_Original_Num', 'FrameRate_Real', 'Interleave_Duration', 'Interleave_Preload', 'Interleave_VideoFrames', 'OverallBitRate_Maximum', 'OverallBitRate_Minimum', 'OverallBitRate', 'OverallBitRate_Nominal', 'PixelAspectRatio_CleanAperture', 'PixelAspectRatio', 'PixelAspectRatio_Original', 'SamplesPerFrame', 'SamplingRate', 'Source_Duration_FirstFrame', 'Source_Duration_LastFrame', 'Source_Duration', 'TimeStamp_FirstFrame', 'Video_Delay'];
+const FLOAT_FIELDS = ['Active_DisplayAspectRatio', 'BitRate_Encoded', 'BitRate_Maximum', 'BitRate_Minimum', 'BitRate', 'BitRate_Nominal', 'Bits-Pixel_Frame', 'BitsPixel_Frame', 'Compression_Ratio', 'Delay', 'Delay_Original', 'DisplayAspectRatio_CleanAperture', 'DisplayAspectRatio', 'DisplayAspectRatio_Original', 'Duration_End_Command', 'Duration_End', 'Duration_FirstFrame', 'Duration_LastFrame', 'Duration', 'Duration_Start2End', 'Duration_Start_Command', 'Duration_Start', 'Events_MinDuration', 'FrameRate_Maximum', 'FrameRate_Minimum', 'FrameRate', 'FrameRate_Nominal', 'FrameRate_Original_Den', 'FrameRate_Original', 'FrameRate_Original_Num', 'FrameRate_Real', 'Interleave_Duration', 'Interleave_Preload', 'Interleave_VideoFrames', 'MasteringDisplay_Luminance_Max', 'MasteringDisplay_Luminance_Min', 'MaxCLL', 'MaxCLL_Original', 'MaxFALL', 'MaxFALL_Original', 'OverallBitRate_Maximum', 'OverallBitRate_Minimum', 'OverallBitRate', 'OverallBitRate_Nominal', 'PixelAspectRatio_CleanAperture', 'PixelAspectRatio', 'PixelAspectRatio_Original', 'SamplesPerFrame', 'SamplingRate', 'Source_Duration_FirstFrame', 'Source_Duration_LastFrame', 'Source_Duration', 'TimeStamp_FirstFrame', 'Video_Delay'];
 
 const DEFAULT_OPTIONS = {
   coverData: false,
@@ -285,12 +285,14 @@ class MediaInfo {
 // This code implements the `-sMODULARIZE` settings by taking the generated
 // JS program code (INNER_JS_CODE) and wrapping it in a factory function.
 
-// When targetting node and ES6 we use `await import ..` in the generated code
+// When targeting node and ES6 we use `await import ..` in the generated code
 // so the outer function needs to be marked as async.
 async function Module(moduleArg = {}) {
   var moduleRtn;
 
   // include: shell.js
+  // include: minimum_runtime_check.js
+  // end include: minimum_runtime_check.js
   // The Module object: Our interface to the outside world. We import
   // and export values on it. There are various ways Module can be used:
   // 1. Not defined. We create it here
@@ -373,42 +375,12 @@ async function Module(moduleArg = {}) {
   // set in exit() and abort()
   var ABORT = false;
 
-  // include: runtime_common.js
-  // include: runtime_stack_check.js
-  // end include: runtime_stack_check.js
-  // include: runtime_exceptions.js
   // end include: runtime_exceptions.js
   // include: runtime_debug.js
   // end include: runtime_debug.js
   var readyPromiseResolve, readyPromiseReject;
 
   // Memory management
-
-  var wasmMemory;
-
-  var /** @type {!Int8Array} */
-    HEAP8,
-    /** @type {!Uint8Array} */
-    HEAPU8,
-    /** @type {!Int16Array} */
-    HEAP16,
-    /** @type {!Uint16Array} */
-    HEAPU16,
-    /** @type {!Int32Array} */
-    HEAP32,
-    /** @type {!Uint32Array} */
-    HEAPU32,
-    /** @type {!Float32Array} */
-    HEAPF32,
-    /** @type {!Float64Array} */
-    HEAPF64;
-
-  // BigInt64Array type is not correctly defined in closure
-  var /** not-@type {!BigInt64Array} */
-    HEAP64,
-    /* BigUint64Array type is not correctly defined in closure
-/** not-@type {!BigUint64Array} */
-    HEAPU64;
 
   var runtimeInitialized = false;
 
@@ -436,35 +408,12 @@ async function Module(moduleArg = {}) {
     // No ATPOSTCTORS hooks
   }
 
-  // A counter of dependencies for calling run(). If we need to
-  // do asynchronous work before running, increment this and
-  // decrement it. Incrementing must happen in a place like
-  // Module.preRun (used by emcc to add file preloading).
-  // Note that you can add dependencies in preRun, even though
-  // it happens right before run - run will be postponed until
-  // the dependencies are met.
-  var runDependencies = 0;
-  var dependenciesFulfilled = null; // overridden to take different actions when all run dependencies are fulfilled
-
-  function addRunDependency(id) {
-    runDependencies++;
-  }
-
-  function removeRunDependency(id) {
-    runDependencies--;
-
-    if (runDependencies == 0) {
-      if (dependenciesFulfilled) {
-        var callback = dependenciesFulfilled;
-        dependenciesFulfilled = null;
-        callback(); // can add another dependenciesFulfilled
-      }
-    }
-  }
-
-  /** @param {string|number=} what */
+  /**
+   * @param {string|number=} what
+   * @noreturn
+   */
   function abort(what) {
-    what = 'Aborted(' + what + ')';
+    what = `Aborted(${what})`;
     // TODO(sbc): Should we remove printing and leave it up to whoever
     // catches the exception?
     err(what);
@@ -502,11 +451,14 @@ async function Module(moduleArg = {}) {
     if (Module['locateFile']) {
       return locateFile('MediaInfoModule.wasm')
     }
+
     // Use bundler-friendly `new URL(..., import.meta.url)` pattern; works in browsers too.
     return new URL('MediaInfoModule.wasm', import.meta.url).href
   }
 
   function getBinarySync(file) {
+    // Throwing a plain string here, even though it not normally advisable since
+    // this gets turning into an `abort` in instantiateArrayBuffer.
     throw 'both async and sync fetching of the wasm failed'
   }
 
@@ -557,10 +509,11 @@ async function Module(moduleArg = {}) {
 
   function getWasmImports() {
     // prepare imports
-    return {
+    var imports = {
       env: wasmImports,
       wasi_snapshot_preview1: wasmImports,
-    }
+    };
+    return imports
   }
 
   // Create the wasm instance.
@@ -573,18 +526,12 @@ async function Module(moduleArg = {}) {
     function receiveInstance(instance, module) {
       wasmExports = instance.exports;
 
-      wasmMemory = wasmExports['memory'];
+      assignWasmExports(wasmExports);
 
       updateMemoryViews();
 
-      wasmTable = wasmExports['__indirect_function_table'];
-
-      assignWasmExports(wasmExports);
-      removeRunDependency();
       return wasmExports
     }
-    // wait for the pthread pool (if any)
-    addRunDependency();
 
     // Prefer streaming instantiation if available.
     function receiveInstantiationResult(result) {
@@ -603,7 +550,37 @@ async function Module(moduleArg = {}) {
     return exports
   }
 
-  var UTF8Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder() : undefined;
+  /** @type {!Int16Array} */
+  var HEAP16;
+
+  /** @type {!Int32Array} */
+  var HEAP32;
+
+  /** not-@type {!BigInt64Array} */
+  var HEAP64;
+
+  /** @type {!Int8Array} */
+  var HEAP8;
+
+  /** @type {!Float32Array} */
+  var HEAPF32;
+
+  /** @type {!Float64Array} */
+  var HEAPF64;
+
+  /** @type {!Uint16Array} */
+  var HEAPU16;
+
+  /** @type {!Uint32Array} */
+  var HEAPU32;
+
+  /** not-@type {!BigUint64Array} */
+  var HEAPU64;
+
+  /** @type {!Uint8Array} */
+  var HEAPU8;
+
+  var UTF8Decoder = globalThis.TextDecoder && new TextDecoder();
 
   var findStringEnd = (heapOrArray, idx, maxBytesToRead, ignoreNul) => {
     var maxIdx = idx + maxBytesToRead;
@@ -860,7 +837,7 @@ async function Module(moduleArg = {}) {
     }
   };
   var attachFinalizer = (handle) => {
-    if ('undefined' === typeof FinalizationRegistry) {
+    if (!globalThis.FinalizationRegistry) {
       attachFinalizer = (handle) => handle;
       return handle
     }
@@ -1178,7 +1155,7 @@ async function Module(moduleArg = {}) {
           break
 
         default:
-          throwBindingError('Unsupporting sharing policy');
+          throwBindingError('Unsupported sharing policy');
       }
     }
     return ptr
@@ -1364,13 +1341,13 @@ async function Module(moduleArg = {}) {
     });
   };
   /** @constructor
-      @param {*=} pointeeType,
-      @param {*=} sharingPolicy,
-      @param {*=} rawGetPointee,
-      @param {*=} rawConstructor,
-      @param {*=} rawShare,
-      @param {*=} rawDestructor,
-       */
+    @param {*=} pointeeType,
+    @param {*=} sharingPolicy,
+    @param {*=} rawGetPointee,
+    @param {*=} rawConstructor,
+    @param {*=} rawShare,
+    @param {*=} rawDestructor,
+     */
   function RegisteredPointer(
     name,
     registeredClass,
@@ -1431,8 +1408,6 @@ async function Module(moduleArg = {}) {
 
   var wasmTableMirror = [];
 
-  /** @type {WebAssembly.Table} */
-  var wasmTable;
   var getWasmTableEntry = (funcPtr) => {
     var func = wasmTableMirror[funcPtr];
     if (!func) {
@@ -1502,7 +1477,7 @@ async function Module(moduleArg = {}) {
     var typeConverters = new Array(dependentTypes.length);
     var unregisteredTypes = [];
     var registered = 0;
-    dependentTypes.forEach((dt, i) => {
+    for (let [i, dt] of dependentTypes.entries()) {
       if (registeredTypes.hasOwnProperty(dt)) {
         typeConverters[i] = registeredTypes[dt];
       } else {
@@ -1518,7 +1493,7 @@ async function Module(moduleArg = {}) {
           }
         });
       }
-    });
+    }
     if (0 === unregisteredTypes.length) {
       onComplete(typeConverters);
     }
@@ -1767,7 +1742,7 @@ async function Module(moduleArg = {}) {
     var needsDestructorStack = usesDestructorStack(argTypes);
 
     var returns = !argTypes[0].isVoid;
-    // Builld the arguments that will be passed into the closure around the invoker
+    // Build the arguments that will be passed into the closure around the invoker
     // function.
     var retType = argTypes[0];
     var instType = argTypes[1];
@@ -1935,6 +1910,7 @@ async function Module(moduleArg = {}) {
   var emval_handles = [0, 1, , 1, null, 1, true, 1, false, 1];
   var __emval_decref = (handle) => {
     if (handle > 9 && 0 === --emval_handles[handle + 1]) {
+      emval_handles[handle];
       emval_handles[handle] = undefined;
       emval_freelist.push(handle);
     }
@@ -2202,7 +2178,7 @@ async function Module(moduleArg = {}) {
     });
   };
 
-  var UTF16Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder('utf-16le') : undefined;
+  var UTF16Decoder = globalThis.TextDecoder ? new TextDecoder('utf-16le') : undefined;
 
   var UTF16ToString = (ptr, maxBytesToRead, ignoreNul) => {
     var idx = ptr >> 1;
@@ -2507,8 +2483,7 @@ async function Module(moduleArg = {}) {
     if (!getEnvStrings.strings) {
       // Default values.
       // Browser language detection #8751
-      var lang =
-        ((typeof navigator == 'object' && navigator.language) || 'C').replace('-', '_') + '.UTF-8';
+      var lang = (globalThis.navigator?.language ?? 'C').replace('-', '_') + '.UTF-8';
       var env = {
         USER: 'web_user',
         LOGNAME: 'web_user',
@@ -2611,7 +2586,9 @@ async function Module(moduleArg = {}) {
   // Imports from the Wasm binary.
   var ___getTypeName,
     _malloc,
-    _free;
+    _free,
+    wasmMemory,
+    wasmTable;
 
   function assignWasmExports(wasmExports) {
     ___getTypeName = wasmExports['__getTypeName'];
@@ -2620,7 +2597,10 @@ async function Module(moduleArg = {}) {
     wasmExports['_emscripten_stack_restore'];
     wasmExports['_emscripten_stack_alloc'];
     wasmExports['emscripten_stack_get_current'];
+    wasmMemory = wasmExports['memory'];
+    wasmTable = wasmExports['__indirect_function_table'];
   }
+
   var wasmImports = {
     /** @export */
     __syscall_fcntl64: ___syscall_fcntl64,
@@ -2683,22 +2663,11 @@ async function Module(moduleArg = {}) {
     /** @export */
     fd_write: _fd_write,
   };
-  var wasmExports = await createWasm();
 
   // include: postamble.js
   // === Auto-generated postamble setup entry stuff ===
 
   function run() {
-    if (runDependencies > 0) {
-      dependenciesFulfilled = run;
-      return
-    }
-
-    // a preRun added a dependency, run will be called later
-    if (runDependencies > 0) {
-      dependenciesFulfilled = run;
-      return
-    }
 
     function doRun() {
       // run may have just been called through dependencies being fulfilled just in this very frame,
@@ -2716,6 +2685,13 @@ async function Module(moduleArg = {}) {
       doRun();
     }
   }
+
+  var wasmExports;
+
+  // In modularize mode the generated code is within a factory function so we
+  // can use await here (since it's not top-level-await).
+  wasmExports = await createWasm();
+
   run();
 
   // end include: postamble.js
@@ -2725,7 +2701,7 @@ async function Module(moduleArg = {}) {
   // and return either the Module itself, or a promise of the module.
   //
   // We assign to the `moduleRtn` global here and configure closure to see
-  // this as and extern so it won't get minified.
+  // this as an extern so it won't get minified.
 
   if (runtimeInitialized) {
     moduleRtn = Module;
