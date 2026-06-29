@@ -22,6 +22,7 @@ const CXXFLAGS = '-DEMSCRIPTEN_HAS_UNBOUND_TYPE_NAMES=0 -fno-rtti -fno-exception
 
 // switch off features to save some bytes
 const MediaInfoLib_CXXFLAGS = `-I ../../../Source -I ../../../../ZenLib/Source -s USE_ZLIB=1 \
+  -DUNICODE \
   -DMEDIAINFO_ADVANCED_YES \
   -DMEDIAINFO_MINIMAL_YES \
   -DMEDIAINFO_EXPORT_YES \

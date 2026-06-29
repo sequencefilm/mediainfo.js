@@ -88,7 +88,9 @@ it('should return HTML string', async () => {
     mi = await mediaInfoFactory({ format: 'HTML' })
     const result = await analyzeFakeData(mi)
     expect(result).toEqual(expect.any(String))
-    expect(result).toMatch('<html>')
+    // MediaInfoLib 26.05 emits `<html lang="en">` (with a DOCTYPE), so match
+    // the opening tag loosely rather than the bare `<html>`.
+    expect(result).toMatch(/<html[\s>]/)
     expect(result).toMatch('20.0 Bytes')
     expect(result).toMatch('</html>')
   } finally {

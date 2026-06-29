@@ -13,7 +13,10 @@ async function task() {
     [
       './configure',
       '--host=le32-unknown-nacl',
-      '--disable-unicode',
+      // Build ZenLib in Unicode (wide) mode. The char-based (UTF-8) build path
+      // mangles non-Latin-1 characters in MediaInfoLib 26.05 output; the wide
+      // path is unaffected (we convert wide -> UTF-8 ourselves in inform()).
+      '--enable-unicode',
       '--enable-static',
       '--disable-shared',
       `CXXFLAGS=${CXXFLAGS}`,
