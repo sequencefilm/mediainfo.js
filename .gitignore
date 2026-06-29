@@ -8,7 +8,7 @@ ThumbsDB
 npm-debug.log
 /build
 /dist
-/__tests__/fixtures
+/__tests__/fixtures/*
 !/__tests__/fixtures/many_tracks.mp4
 !/__tests__/fixtures/file_example_MP4_480_1_5MG.mp4
 /TODO.txt
